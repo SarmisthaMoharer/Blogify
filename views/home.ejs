@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- <link href="../input.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<head>
+    <%- include('./partials/head.ejs') %>
+    <title>Homepage</title>
+</head>
+<style>
+    
+    .content {
+        padding-top: 4rem; 
+    }
+</style>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="bg-gray-700 flex items-center justify-center h-screen pt-5 "> 
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+            <% blogs.forEach(blog => { %>
+                <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+                    <img class="w-full" src="<% blog.coverImageURL %>" alt="Card Image">
+                    <div class="px-6 py-4">
+                        <h5 class="font-bold text-xl mb-2"><%= blog.title %></h5>
+                        <p class="text-gray-700 text-base">
+                            <%= blog.content %>
+                        </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                        <a href="#" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Go Somewhere
+                        </a>
+                    </div>
+                </div>
+            <% }) %>   
+        </div>
+    </div>
+    <%- include('./partials/scripts.ejs') %>
+
+</body>
+
+</html>

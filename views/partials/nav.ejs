@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <link href="../input.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Blog_A2Z</title>
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="fixed top-0 left-0 w-full bg-gray-900 text-white p-4 shadow-md z-10">
+        
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold">Blog_A2Z</div>
+            <div class="hidden md:flex space-x-4">
+                <a href="#" class="hover:bg-gray-700 px-3 py-2 rounded">Home</a>
+                <% if (locals.user) { %>
+                    <a href="/blog/add-new" class="hover:bg-gray-700 px-3 py-2 rounded">Add Blog</a>
+                    <div class="relative">
+                        <button class="hover:bg-gray-700 px-3 py-2 rounded inline-flex items-center dropdown-button">
+                            <span>User Name<%= user ? user.fullName : 'Guest' %></span>
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute hidden dropdown-menu bg-gray-700 text-white py-2 mt-1 rounded shadow-lg">
+                            <a href="/user/logout" class="block px-4 py-2 hover:bg-gray-600">Logout</a>
+                        </div>
+                    </div>
+                <%  } else {%> 
+                    <a href="/user/signup" class="hover:bg-gray-700 px-3 py-2 rounded">Create Acoount</a>
+                    <a href="/user/signin" class="hover:bg-gray-700 px-3 py-2 rounded">Signin</a>
+                    <% } %>  
+               
+                
+            </div>
+            <div class="md:hidden flex items-center">
+                <button class="mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu hidden md:hidden">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-700 rounded">Home</a>
+            <% if (locals.user) { %>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-700 rounded">Add Blog</a>
+            
+            <div class="relative">
+                <button class="mobile-dropdown-button w-full text-left hover:bg-gray-700 px-4 py-2 rounded inline-flex items-center">
+                    <span><%= user ? user.fullName : 'Guest' %></span>
+                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="hidden mobile-dropdown-menu bg-gray-700 text-white py-2 mt-1 rounded shadow-lg">
+                    <a href="/user/logout" class="block px-4 py-2 hover:bg-gray-600">Logout</a>
+                </div>
+                <%  } else {%> 
+                    <a href="/user/signup" class="hover:bg-gray-700 px-3 py-2 rounded">Create Acoount</a>
+                    <a href="/user/signin" class="hover:bg-gray-700 px-3 py-2 rounded">Signin</a>
+                    <% } %>  
+            </div>
+        </div>
+    </nav>
+
+    <% if (locals.error) { %>
+        <div class="container mx-auto mt-4">
+            <div id="error-message" class="bg-red-500 text-white p-4 rounded shadow-md flex justify-between items-center">
+                <p><%= locals.error %></p>
+                <button id="close-error" class="ml-4 text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    <% } %>
+
+    <script>
+        const btn = document.querySelector('.mobile-menu-button');
+        const menu = document.querySelector('.mobile-menu');
+        const dropdownButton = document.querySelector('.dropdown-button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        const mobileDropdownButton = document.querySelector('.mobile-dropdown-button');
+        const mobileDropdownMenu = document.querySelector('.mobile-dropdown-menu');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        dropdownButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        mobileDropdownButton.addEventListener('click', () => {
+            mobileDropdownMenu.classList.toggle('hidden');
+        });
+
+        const closeErrorButton = document.getElementById('close-error');
+        const errorMessage = document.getElementById('error-message');
+
+        if (closeErrorButton) {
+            closeErrorButton.addEventListener('click', () => {
+                errorMessage.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
+
+
